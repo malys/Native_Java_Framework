@@ -1,19 +1,17 @@
 package example.micronaut;
 
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("/conferences") // <1>
+@RestController
 public class ConferenceController {
+    @Autowired
+    private ConferenceService conferenceService;
 
-    private final ConferenceService conferenceService;
 
-    public ConferenceController(ConferenceService conferenceService) { // <2>
-        this.conferenceService = conferenceService;
-    }
-
-    @Get("/random") // <3>
-    public Conference randomConf() { // <4>
+    @RequestMapping("/conferences/random")
+    public Conference randomConf() {
         return conferenceService.randomConf();
     }
 }
