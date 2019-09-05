@@ -8,8 +8,8 @@ buildscript {
 }
 
 plugins {
-    id "com.github.johnrengelman.shadow" version "5.0.0"
     id "application"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
     id "net.ltgt.apt-eclipse" version "0.21"
     id "org.springframework.boot" version "$springVersion"
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
@@ -25,15 +25,52 @@ configurations {
     developmentOnly
 }
 
-bootJar {
-    baseName = 'spring'
 
+dependencyManagement {
+    imports {
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$springVersion"
+    }
+}
+
+
+shadowJar {
+    mergeServiceFiles()
 }
 
 dependencies {
+   annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    annotationProcessor "io.micronaut:micronaut-graal"
+    annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+    annotationProcessor "io.micronaut.spring:micronaut-spring-boot-annotation"
+    annotationProcessor "io.micronaut.spring:micronaut-spring-web-annotation"
+    testAnnotationProcessor "io.micronaut.spring:micronaut-spring-web-annotation"
+
+    compile "io.swagger.core.v3:swagger-annotations"
+    compile "io.micronaut:micronaut-inject"
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    
+    compile("io.micronaut:micronaut-http-server")    
+    compile("io.micronaut:micronaut-http-server-netty")
+
+    runtime("io.micronaut:micronaut-views")
+    runtime "io.micronaut.configuration:micronaut-hibernate-validator"
+    runtime("org.springframework.boot:spring-boot-starter-thymeleaf")
+    runtime("io.micronaut.spring:micronaut-spring-web")
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+    runtime "ognl:ognl:3.1.12"
+
+    // uncomment the following to restore Spring Boot as the application executor
+//    runtime("org.springframework.boot:spring-boot-starter-tomcat")
+//    runtime 'javax.servlet:javax.servlet-api:4.0.0'
+
+    testCompile("io.micronaut:micronaut-http-client")
+    testCompile("io.micronaut.test:micronaut-test-junit5:1.0.2")
+    testCompile "io.micronaut:micronaut-inject-java"
+    testCompile "org.mockito:mockito-junit-jupiter:2.22.0"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.3.0"
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 }
 mainClassName = "example.micronaut.Application"
 
