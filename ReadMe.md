@@ -1,4 +1,3 @@
 sdk use java 19.2.0-grl
-gradle clean assemble
-java -jar build/libs/micronaut-all.jar
-native-image --no-server -cp build/libs/micronaut-all.jar
+mvn clean package
+java -jar target/rest-json-1.0-SNAPSHOT-runner.jar

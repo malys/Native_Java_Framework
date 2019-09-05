@@ -1,12 +1,12 @@
 package example.micronaut;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-@Singleton // <1>
+@ApplicationScoped
 public class ConferenceService {
 
     private static final List<Conference> CONFERENCES = Arrays.asList(

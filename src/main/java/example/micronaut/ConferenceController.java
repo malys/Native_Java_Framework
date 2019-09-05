@@ -1,19 +1,22 @@
 package example.micronaut;
 
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+import javax.inject.Inject; 
 
-@Controller("/conferences") // <1>
+@Path("/conferences")
+@Produces(MediaType.APPLICATION_JSON)
 public class ConferenceController {
 
-    private final ConferenceService conferenceService;
+    @Inject
+    private ConferenceService conferenceService;
 
-    public ConferenceController(ConferenceService conferenceService) { // <2>
-        this.conferenceService = conferenceService;
-    }
-
-    @Get("/random") // <3>
-    public Conference randomConf() { // <4>
+    @Path("/random")
+    @GET
+    public Conference randomConf() { 
         return conferenceService.randomConf();
     }
 }
