@@ -10,10 +10,12 @@ See [GraalVM 19.2](https://www.graalvm.org/)
 
 ### Micronaut 1.2
 
+```
 sdk use java 19.2.0-grl
 gradle clean assemble
 java -jar build/libs/micronaut-all.jar
 native-image --no-server -cp build/libs/micronaut-all.jar
+```
 
 ### Spring with Micronaut 1.1 
 See GIT branch.
