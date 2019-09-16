@@ -1,12 +1,15 @@
 package example.micronaut;
 
-import javax.enterprise.context.ApplicationScoped;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-@ApplicationScoped
+@Component
+@Scope("singleton")
 public class ConferenceService {
 
     private static final List<Conference> CONFERENCES = Arrays.asList(

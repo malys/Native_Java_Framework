@@ -1,22 +1,18 @@
 package example.micronaut;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.core.MediaType;
-import javax.inject.Inject; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@Path("/conferences")
-@Produces(MediaType.APPLICATION_JSON)
+@RestController
+@RequestMapping("/conferences/random")
 public class ConferenceController {
-
-    @Inject
+    @Autowired
     private ConferenceService conferenceService;
 
-    @Path("/random")
-    @GET
-    public Conference randomConf() { 
+    @GetMapping
+    public Conference randomConf() {
         return conferenceService.randomConf();
     }
 }
