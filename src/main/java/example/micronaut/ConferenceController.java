@@ -6,9 +6,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 import javax.inject.Inject; 
+import javax.enterprise.context.RequestScoped;
 
 @Path("/conferences")
 @Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class ConferenceController {
 
     @Inject
